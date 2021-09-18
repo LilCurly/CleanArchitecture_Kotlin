@@ -8,4 +8,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CryptoCurrency_CleanArchitecture"
 include ':app'
-include ':core'
+include ':application'
+include ':domain'
