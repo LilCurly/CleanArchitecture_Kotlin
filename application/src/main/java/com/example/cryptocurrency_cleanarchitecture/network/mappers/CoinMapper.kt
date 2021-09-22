@@ -8,7 +8,7 @@ import javax.inject.Inject
 class CoinMapper @Inject constructor(): Mapper<CoinDto, Coin> {
     override fun mapToEntity(model: CoinDto): Coin {
         return Coin(
-            model.id ?: "",
+            model.rank ?: 0,
             model.name ?: "",
             model.symbol ?: "",
             model.isActive ?: false
@@ -17,11 +17,11 @@ class CoinMapper @Inject constructor(): Mapper<CoinDto, Coin> {
 
     override fun mapFromEntity(entity: Coin): CoinDto {
         return CoinDto(
-            entity.id,
+            null,
             entity.isActive,
             null,
             entity.name,
-            null,
+            entity.rank,
             entity.symbol,
             null
         )
