@@ -3,8 +3,9 @@ package com.example.cryptocurrency_cleanarchitecture.network.sources
 import com.example.cryptocurrency_cleanarchitecture.entities.Coin
 import com.example.cryptocurrency_cleanarchitecture.network.mappers.CoinMapper
 import com.example.cryptocurrency_cleanarchitecture.network.services.CoinService
+import javax.inject.Inject
 
-class CoinRemoteDataSource (
+class CoinRemoteDataSource @Inject constructor(
     private val service: CoinService,
     private val mapper: CoinMapper
 ) {

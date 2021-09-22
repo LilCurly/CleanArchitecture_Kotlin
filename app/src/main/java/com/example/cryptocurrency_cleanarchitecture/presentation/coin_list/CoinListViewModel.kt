@@ -5,10 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptocurrency_cleanarchitecture.interactors.coin.request.GetAllCoins
 import com.example.cryptocurrency_cleanarchitecture.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-class CoinListViewModel (private val getCoinsUseCase: GetAllCoins): ViewModel() {
+@HiltViewModel
+class CoinListViewModel @Inject constructor(private val getCoinsUseCase: GetAllCoins): ViewModel() {
 
     private val _state = mutableStateOf(CoinListState())
     val state = _state

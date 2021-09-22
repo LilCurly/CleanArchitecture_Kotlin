@@ -1,5 +1,7 @@
 package com.example.cryptocurrency_cleanarchitecture.cache.sources
 
-class CoinCacheDataSource {
+import javax.inject.Inject
+
+class CoinCacheDataSource @Inject constructor() {
 
 }
