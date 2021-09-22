@@ -1,5 +1,6 @@
 package com.example.cryptocurrency_cleanarchitecture.presentation.coin_list.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,15 +13,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.example.cryptocurrency_cleanarchitecture.entities.Coin
 
 @Composable
-fun ComposeCoinItem(coin: Coin) {
+fun ComposeCoinItem(coin: Coin, onItemClick: (Coin) -> Unit) {
+    val navController = rememberNavController()
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxWidth()
             .padding(20.dp)
+            .clickable {
+                onItemClick(coin)
+            }
     ) {
         Text(text = "${coin.rank}. ${coin.name} (${coin.symbol})", color = MaterialTheme.colors.onBackground)
         Text(
