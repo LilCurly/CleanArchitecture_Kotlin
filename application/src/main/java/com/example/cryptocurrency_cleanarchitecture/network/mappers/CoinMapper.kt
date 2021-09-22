@@ -11,13 +11,14 @@ class CoinMapper @Inject constructor(): Mapper<CoinDto, Coin> {
             model.id ?: "",
             model.name ?: "",
             model.symbol ?: "",
+            model.isActive ?: false
         )
     }
 
     override fun mapFromEntity(entity: Coin): CoinDto {
         return CoinDto(
             entity.id,
-            null,
+            entity.isActive,
             null,
             entity.name,
             null,
