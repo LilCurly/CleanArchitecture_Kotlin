@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.cryptocurrency_cleanarchitecture.presentation.coin_detail.ComposeCoinDetailScreen
 import com.example.cryptocurrency_cleanarchitecture.presentation.coin_list.ComposeCoinListScreen
 import com.example.cryptocurrency_cleanarchitecture.presentation.theme.CryptoCurrency_CleanArchitectureTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +33,7 @@ class MainActivity : ComponentActivity() {
                             "coins/{coinId}",
                             arguments = listOf(navArgument("coinId") { type = NavType.StringType })
                         ) {
-                            Text(text = "Coin id: ${it.arguments?.getString("coinId")}")
+                            ComposeCoinDetailScreen()
                         }
                     }
                 }

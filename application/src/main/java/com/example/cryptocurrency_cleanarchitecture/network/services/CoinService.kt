@@ -1,5 +1,6 @@
 package com.example.cryptocurrency_cleanarchitecture.network.services
 
+import com.example.cryptocurrency_cleanarchitecture.network.models.CoinDetailDto
 import com.example.cryptocurrency_cleanarchitecture.network.models.CoinDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -10,4 +11,7 @@ interface CoinService {
 
     @GET("/v1/coins/{coinName}")
     suspend fun getCoinByName(@Path("") coinName: String): CoinDto
+
+    @GET("/v1/coins/{coinId}")
+    suspend fun getCoinById(@Path("coinId") coinId: String): CoinDetailDto
 }

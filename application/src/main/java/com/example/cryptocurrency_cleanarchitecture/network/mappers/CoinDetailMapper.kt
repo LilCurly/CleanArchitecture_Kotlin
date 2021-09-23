@@ -7,8 +7,9 @@ import com.example.cryptocurrency_cleanarchitecture.mappers.Mapper
 import com.example.cryptocurrency_cleanarchitecture.network.models.CoinDetailDto
 import com.example.cryptocurrency_cleanarchitecture.network.models.TagDto
 import com.example.cryptocurrency_cleanarchitecture.network.models.TeamMemberDto
+import javax.inject.Inject
 
-class CoinDetailMapper: Mapper<CoinDetailDto, CoinDetail> {
+class CoinDetailMapper @Inject constructor(): Mapper<CoinDetailDto, CoinDetail> {
     override fun mapToEntity(model: CoinDetailDto): CoinDetail {
         return CoinDetail(
             model.id ?: "",

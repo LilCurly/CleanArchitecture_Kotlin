@@ -6,6 +6,7 @@ import com.example.cryptocurrency_cleanarchitecture.network.mappers.CoinMapper
 import com.example.cryptocurrency_cleanarchitecture.network.services.CoinService
 import com.example.cryptocurrency_cleanarchitecture.network.sources.CoinRemoteDataSource
 import com.example.cryptocurrency_cleanarchitecture.repositories.CoinDetailRepository
+import com.example.cryptocurrency_cleanarchitecture.repositories.CoinDetailRepositoryImpl
 import com.example.cryptocurrency_cleanarchitecture.repositories.CoinRepository
 import com.example.cryptocurrency_cleanarchitecture.repositories.CoinRepositoryImpl
 import dagger.Binds
@@ -47,5 +48,11 @@ class ApplicationModule {
         fun bindCoinRepository(
             coinRepositoryImpl: CoinRepositoryImpl
         ): CoinRepository
+
+        @Binds
+        @Singleton
+        fun bindCoinDetailRepository(
+            coinDetailRepositoryImpl: CoinDetailRepositoryImpl
+        ): CoinDetailRepository
     }
 }

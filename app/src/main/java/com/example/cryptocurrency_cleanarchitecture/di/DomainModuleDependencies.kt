@@ -1,5 +1,6 @@
 package com.example.cryptocurrency_cleanarchitecture.di
 
+import com.example.cryptocurrency_cleanarchitecture.repositories.CoinDetailRepositoryImpl
 import com.example.cryptocurrency_cleanarchitecture.repositories.CoinRepository
 import com.example.cryptocurrency_cleanarchitecture.repositories.CoinRepositoryImpl
 import dagger.hilt.EntryPoint
@@ -10,4 +11,5 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 interface DomainModuleDependencies {
     fun coinRepository(coinRepositoryImpl: CoinRepositoryImpl)
+    fun coinDetailRepository(coinDetailRepositoryImpl: CoinDetailRepositoryImpl)
 }
