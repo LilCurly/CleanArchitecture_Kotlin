@@ -21,21 +21,19 @@ fun ComposeCoinItem(coin: Coin, onItemClick: (Coin) -> Unit) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp)
             .clickable {
                 onItemClick(coin)
             }
+            .padding(15.dp)
     ) {
         Text(
             text = "${coin.rank}. ${coin.name} (${coin.symbol})",
             color = MaterialTheme.colors.onBackground,
-            modifier = Modifier.padding(start = 15.dp)
         )
         Text(
             text = if (coin.isActive) "active" else "inactive",
             color = if (coin.isActive) Color.Green else Color.Red,
             fontStyle = FontStyle.Italic,
-            modifier = Modifier.padding(end = 15.dp)
         )
     }
 }
