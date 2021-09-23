@@ -16,7 +16,6 @@ import com.example.cryptocurrency_cleanarchitecture.entities.Coin
 
 @Composable
 fun ComposeCoinItem(coin: Coin, onItemClick: (Coin) -> Unit) {
-    val navController = rememberNavController()
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
