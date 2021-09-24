@@ -10,3 +10,4 @@ rootProject.name = "CryptoCurrency_CleanArchitecture"
 include ':app'
 include ':application'
 include ':domain'
+include ':redux'
