@@ -9,3 +9,4 @@ val Teal200 = Color(0xFF03DAC5)
 
 val Background = Color(0xFF22223b)
 val OnBackground = Color(0xFFedf2f4)
+val DividerColor = Color(0x20edf2f4)

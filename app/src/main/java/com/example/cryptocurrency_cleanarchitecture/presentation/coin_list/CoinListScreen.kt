@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.cryptocurrency_cleanarchitecture.presentation.coin_list.components.ComposeCoinItem
+import com.example.cryptocurrency_cleanarchitecture.presentation.commons.ComposeErrorScreen
 import com.example.cryptocurrency_cleanarchitecture.presentation.commons.ComposeLoadingScreen
 
 @Composable
@@ -26,6 +27,10 @@ fun ComposeCoinListScreen(
 
     if (state.loading) {
         ComposeLoadingScreen()
+    }
+
+    if (state.error.isNotEmpty()) {
+        ComposeErrorScreen(state.error)
     }
 
     if (state.coins.isNotEmpty()) {

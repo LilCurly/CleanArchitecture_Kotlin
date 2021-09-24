@@ -13,6 +13,7 @@ class CoinDetailMapper @Inject constructor(): Mapper<CoinDetailDto, CoinDetail> 
     override fun mapToEntity(model: CoinDetailDto): CoinDetail {
         return CoinDetail(
             model.id ?: "",
+            model.rank ?: 0,
             model.name ?: "",
             model.symbol ?: "",
             model.description ?: "",
@@ -27,7 +28,8 @@ class CoinDetailMapper @Inject constructor(): Mapper<CoinDetailDto, CoinDetail> 
                     it.name ?: "",
                     it.position ?: "",
                 )
-            } ?: emptyList()
+            } ?: emptyList(),
+            model.isActive ?: false
         )
     }
 
@@ -39,7 +41,7 @@ class CoinDetailMapper @Inject constructor(): Mapper<CoinDetailDto, CoinDetail> 
             null,
             null,
             entity.id,
-            null,
+            entity.isActive,
             null,
             null,
             null,
@@ -49,7 +51,7 @@ class CoinDetailMapper @Inject constructor(): Mapper<CoinDetailDto, CoinDetail> 
             null,
             null,
             entity.proofType,
-            null,
+            entity.rank,
             null,
             entity.symbol,
             entity.tags.map {
