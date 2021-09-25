@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,26 +25,30 @@ fun ComposeCoinListScreen(
     navController: NavController,
     viewModel: CoinListViewModel = hiltViewModel()
 ) {
-    val state by viewModel.state
+    val state by viewModel.state.collectAsState()
 
-    if (state.loading) {
+    if (state.isLoading) {
         ComposeLoadingScreen()
     }
 
-    if (state.error.isNotEmpty()) {
-        ComposeErrorScreen(state.error)
+    state.error?.let { error ->
+        if (error.isNotEmpty()) {
+            ComposeErrorScreen(error)
+        }
     }
 
-    if (state.coins.isNotEmpty()) {
-        LazyColumn(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            items(state.coins.count()) {
-                ComposeCoinItem(coin = state.coins[it]) { coin ->
-                    navController.navigate("coins/${coin.id}")
+    state.coins?.let { coins ->
+        if (coins.isNotEmpty()) {
+            LazyColumn(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                items(coins) {
+                    ComposeCoinItem(coin = it) { coin ->
+                        navController.navigate("coins/${coin.id}")
+                    }
                 }
             }
         }

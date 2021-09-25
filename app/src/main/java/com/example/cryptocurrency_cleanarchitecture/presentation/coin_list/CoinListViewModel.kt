@@ -1,38 +1,31 @@
 package com.example.cryptocurrency_cleanarchitecture.presentation.coin_list
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cryptocurrency_cleanarchitecture.interactors.coin.request.GetAllCoins
-import com.example.cryptocurrency_cleanarchitecture.utils.Resource
+import com.example.cryptocurrency_cleanarchitecture.redux.Store
+import com.example.cryptocurrency_cleanarchitecture.redux.coin_list.CoinListAction
+import com.example.cryptocurrency_cleanarchitecture.redux.coin_list.CoinListDataMiddleware
+import com.example.cryptocurrency_cleanarchitecture.redux.coin_list.CoinListReducer
+import com.example.cryptocurrency_cleanarchitecture.redux.coin_list.CoinListViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CoinListViewModel @Inject constructor(private val getCoinsUseCase: GetAllCoins): ViewModel() {
+class CoinListViewModel @Inject constructor(private val store: Store<CoinListViewState, CoinListAction>): ViewModel() {
 
-    private val _state = mutableStateOf(CoinListState())
-    val state = _state
+    val state: StateFlow<CoinListViewState> = store.state
 
     init {
         getCoins()
     }
 
     private fun getCoins() {
-        getCoinsUseCase().onEach {
-            when (it.status) {
-                Resource.Status.ERROR -> {
-                    _state.value = CoinListState(error = it.message ?: "An unexpected error occured")
-                }
-                Resource.Status.LOADING -> {
-                    _state.value = CoinListState(loading = true)
-                }
-                Resource.Status.SUCCESS -> {
-                    _state.value = CoinListState(coins = it.data ?: emptyList())
-                }
-            }
-        }.launchIn(viewModelScope)
+        val action = CoinListAction.RequestingCoinList
+
+        viewModelScope.launch {
+            store.dispatch(action, this)
+        }
     }
 }

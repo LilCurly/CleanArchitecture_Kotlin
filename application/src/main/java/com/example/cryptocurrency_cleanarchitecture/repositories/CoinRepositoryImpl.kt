@@ -4,7 +4,10 @@ import com.example.cryptocurrency_cleanarchitecture.cache.sources.CoinCacheDataS
 import com.example.cryptocurrency_cleanarchitecture.entities.Coin
 import com.example.cryptocurrency_cleanarchitecture.network.sources.CoinRemoteDataSource
 import com.example.cryptocurrency_cleanarchitecture.utils.Resource
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
@@ -14,16 +17,21 @@ class CoinRepositoryImpl @Inject constructor(
     private val remoteSource: CoinRemoteDataSource,
     private val cacheSource: CoinCacheDataSource,
 ): CoinRepository {
-    override fun getAll(): Flow<Resource<List<Coin>>> = flow {
+    @ExperimentalCoroutinesApi
+    override fun getAll(): Flow<Resource<List<Coin>>> = channelFlow {
         try {
-            emit(Resource.loading(null))
+            send(Resource.loading(null))
             val coins = remoteSource.getCoins()
-            emit(Resource.success(coins))
+            send(Resource.success(coins))
+            close()
         } catch (e: HttpException) {
-            emit(Resource.error<List<Coin>>(e.localizedMessage ?: "An unexpected error occured"))
+            send(Resource.error<List<Coin>>(e.localizedMessage ?: "An unexpected error occured"))
+            close()
         } catch (e: IOException) {
-            emit(Resource.error<List<Coin>>("You seem to be disconnected."))
+            send(Resource.error<List<Coin>>("You seem to be disconnected."))
+            close()
         }
+        awaitClose()
     }
 
     override fun getByName(coinName: String): Flow<Resource<Coin>> = flow {

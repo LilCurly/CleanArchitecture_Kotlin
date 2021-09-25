@@ -10,6 +10,6 @@ import dagger.hilt.components.SingletonComponent
 @EntryPoint
 @InstallIn(SingletonComponent::class)
 interface DomainModuleDependencies {
-    fun coinRepository(coinRepositoryImpl: CoinRepositoryImpl)
-    fun coinDetailRepository(coinDetailRepositoryImpl: CoinDetailRepositoryImpl)
+    /*fun coinRepository(coinRepositoryImpl: CoinRepositoryImpl)
+    fun coinDetailRepository(coinDetailRepositoryImpl: CoinDetailRepositoryImpl)*/
 }

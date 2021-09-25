@@ -85,4 +85,5 @@ dependencies {
     // INNER LAYERS
     implementation project(":domain")
     implementation project(":application")
+    implementation project(":redux")
 }
