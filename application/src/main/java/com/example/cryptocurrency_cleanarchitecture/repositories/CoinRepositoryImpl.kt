@@ -18,20 +18,16 @@ class CoinRepositoryImpl @Inject constructor(
     private val cacheSource: CoinCacheDataSource,
 ): CoinRepository {
     @ExperimentalCoroutinesApi
-    override fun getAll(): Flow<Resource<List<Coin>>> = channelFlow {
+    override fun getAll(): Flow<Resource<List<Coin>>> = flow {
         try {
-            send(Resource.loading(null))
+            emit(Resource.loading(null))
             val coins = remoteSource.getCoins()
-            send(Resource.success(coins))
-            close()
+            emit(Resource.success(coins))
         } catch (e: HttpException) {
-            send(Resource.error<List<Coin>>(e.localizedMessage ?: "An unexpected error occured"))
-            close()
+            emit(Resource.error<List<Coin>>(e.localizedMessage ?: "An unexpected error occured"))
         } catch (e: IOException) {
-            send(Resource.error<List<Coin>>("You seem to be disconnected."))
-            close()
+            emit(Resource.error<List<Coin>>("You seem to be disconnected."))
         }
-        awaitClose()
     }
 
     override fun getByName(coinName: String): Flow<Resource<Coin>> = flow {
